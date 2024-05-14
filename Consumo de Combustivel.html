@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Combustível</title>
+</head>
+<body>
+    <h1>Consumo de Combustível</h1>
+    <form id="formulario">
+        <label for="quilometros">Quilômetros percorridos:</label>
+        <input type="number" id="quilometros" step="0.01" required><br>
+
+        <label for="litros">Litros de combustível gastos:</label>
+        <input type="number" id="litros" step="0.01" required><br>
+
+        <label for="precoAlcool">Preço do litro do álcool:</label>
+        <input type="number" id="precoAlcool" step="0.01" required><br>
+
+        <label for="precoGasolina">Preço do litro da gasolina:</label>
+        <input type="number" id="precoGasolina" step="0.01" required><br>
+
+        <button type="button" onclick="calcular()">Calcular</button>
+    </form>
+
+    <div id="resultado"></div>
+
+    <script>
+        function calcular() {
+            const quilometros = parseFloat(document.getElementById('quilometros').value);
+            const litros = parseFloat(document.getElementById('litros').value);
+            const precoAlcool = parseFloat(document.getElementById('precoAlcool').value);
+            const precoGasolina = parseFloat(document.getElementById('precoGasolina').value);
+
+            const consumoMedio = quilometros / litros;
+            const relacaoPrecos = precoAlcool / precoGasolina;
+
+            let mensagemVantagem;
+            if (relacaoPrecos <= 0.7) {
+                mensagemVantagem = "O álcool é mais vantajoso.";
+            } else {
+                mensagemVantagem = "A gasolina é mais vantajosa.";
+            }
+
+            const resultado = `
+                <p>Consumo médio: ${consumoMedio.toFixed(2)} km/l</p>
+                <p>Relação de preços (álcool/gasolina): ${relacaoPrecos.toFixed(2)}</p>
+                <p>${mensagemVantagem}</p>
+            `;
+
+            document.getElementById('resultado').innerHTML = resultado;
+        }
+    </script>
+</body>
+</html>
